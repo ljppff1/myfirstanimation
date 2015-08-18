@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    
+       <com.example.view.MyViewpager
+            android:id="@+id/vp1"
+            android:layout_width="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="400dp" />
+       
+    <ImageView 
+        android:id="@+id/shake_img5"
+        android:layout_height="65dp"
+        android:layout_width="65dp"
+        android:src="@drawable/aa8"
+        android:layout_centerHorizontal="true"
+     android:layout_alignParentBottom="true"
+     android:layout_marginBottom="380dp"
+     android:visibility="gone"
+                android:scaleType="fitXY"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_name"/>
+
+</RelativeLayout>

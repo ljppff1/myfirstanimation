@@ -1,0 +1,1 @@
+package com.example.utils;public class Content {	public static  Boolean  mfirst =false;}
