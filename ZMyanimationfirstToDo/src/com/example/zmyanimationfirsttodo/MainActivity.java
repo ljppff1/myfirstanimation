@@ -22,8 +22,10 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity  {
 
 	private com.example.view.MyViewpager vp;
 	private ArrayList<Fragment> list;
@@ -32,11 +34,17 @@ public class MainActivity extends FragmentActivity {
 	private Fragmentf3 fc;
 	private Fragmentf4 fd;
     private int mfirst;
+	private ImageView shake_img5;
+	private Fragment now;
+	public interface OnArticleSelectedListener {
+		public void onArticleSelected();
+	}	
+	private OnArticleSelectedListener mListener;
+ 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
 		vp=(com.example.view.MyViewpager)this.findViewById(R.id.vp1);
 		list = new ArrayList<Fragment>();
 		for(int i=0;i<100;i++){
@@ -44,12 +52,27 @@ public class MainActivity extends FragmentActivity {
 			list.add(fc1);
 
 		}
+		mListener = (OnArticleSelectedListener)list.get(0);
+
+		
+		shake_img5 =(ImageView)this.findViewById(R.id.shake_img5);
+		shake_img5.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				shake_img5.setVisibility(View.GONE);
+				Content.mfirst =false;
+
+				mListener.onArticleSelected();
+			}
+		});
 		ZxzcAdapter zxzc = new ZxzcAdapter(getSupportFragmentManager(), list);
 		vp.setAdapter(zxzc);
 		vp.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override
 			public void onPageSelected(int arg0) {
+				mListener = (OnArticleSelectedListener)list.get(arg0);
 
 				
 			}
@@ -66,6 +89,8 @@ public class MainActivity extends FragmentActivity {
 				if(	Content.mfirst){
 				findViewById(R.id.shake_img5).setVisibility(View.VISIBLE);
 				}
+				
+
 			}
 		});
 		zxzc.notifyDataSetChanged();
@@ -84,7 +109,8 @@ class ZxzcAdapter extends FragmentStatePagerAdapter {
 		}
 		@SuppressLint("ResourceAsColor")
 		@Override
-		public Fragment getItem(int arg0) {		
+		public Fragment getItem(int arg0) {	
+			now =list.get(arg0);
 			return list.get(arg0);
 		}
 		@Override
